@@ -19,8 +19,8 @@ print("Execution started...")
 
 # Step 1: Load Datasets
 print("Loading datasets...")
-bcell_data = pd.read_excel('input_F13_train.xlsx')
-covid_data = pd.read_excel('input_F13_test.xlsx')
+bcell_data = pd.read_csv('../enhanced_dataset1.csv')
+covid_data = pd.read_excel('../datasets/input_F13_test.xlsx')
 print("Datasets loaded successfully!")
 
 # Step 2: Prepare B-Cell Data
@@ -149,8 +149,8 @@ covid_predictions = best_svm.predict(X_covid_pca)
 covid_epitopes = covid_data[covid_predictions == 1]
 covid_non_epitopes = covid_data[covid_predictions == 0]
 
-covid_epitopes.to_csv('covid_epitopes_hybrid.csv', index=False)
-covid_non_epitopes.to_csv('covid_non_epitopes_hybrid.csv', index=False)
+covid_epitopes.to_csv('../Mpox_epitopes_hybrid.csv', index=False)
+covid_non_epitopes.to_csv('../Mpox_non_epitopes_hybrid.csv', index=False)
 
 print("Epitope predictions saved to 'covid_epitopes_hybrid.csv'.")
 print("Non-epitope predictions saved to 'covid_non_epitopes_hybrid.csv'.")
