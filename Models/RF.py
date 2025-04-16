@@ -16,8 +16,8 @@ print("Starting execution...")
 
 # Step 1: Load Datasets
 print("Loading datasets...")
-bcell_data = pd.read_excel('input_F13_train.xlsx')
-mokeypox_data = pd.read_excel('input_F13_test.xlsx')
+bcell_data = pd.read_csv('../enhanced_dataset1.csv')
+mokeypox_data = pd.read_csv('../enhanced_test_dataset1.csv') 
 print("Datasets loaded successfully!")
 
 # Step 2: Prepare B-Cell Data
@@ -127,8 +127,8 @@ covid_predictions = best_rf_model.predict(X_covid_pca)
 covid_epitopes = mokeypox_data[covid_predictions == 1]
 covid_non_epitopes = mokeypox_data[covid_predictions == 0]
 
-covid_epitopes.to_csv('covid_epitopes.csv', index=False)
-covid_non_epitopes.to_csv('covid_non_epitopes.csv', index=False)
+covid_epitopes.to_csv('../Monkeypox_epitopes.csv', index=False)
+covid_non_epitopes.to_csv('../Monkeypox_non_epitopes.csv', index=False)
 
 print("Epitope predictions saved to 'Mpox_epitopes.csv'.")
 print("Non-epitope predictions saved to 'Mpox_non_epitopes.csv'.")
