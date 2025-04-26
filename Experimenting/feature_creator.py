@@ -31,7 +31,6 @@ def analyze_peptide(sequence):
             }.get((sequence[i], sequence[i + 1]), -4) for i in range(len(sequence) - 1)
         ]) if len(sequence) > 1 else 0,
         "ptm_sites": sum(1 for i in range(len(sequence) - 1) if sequence[i] in 'ST' and sequence[i + 1] in 'PQ'),
-        "interaction_energy": np.random.uniform(-10, 0)
     }
 
     return features

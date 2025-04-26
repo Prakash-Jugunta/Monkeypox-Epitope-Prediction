@@ -9,7 +9,7 @@ from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from torch.utils.data import DataLoader, TensorDataset
 import matplotlib.pyplot as plt
 import logging
-
+import joblib
 # 2) Configure logging (append mode)
 logging.basicConfig(
     filename='../Results/Logs/cnn_training.log',
@@ -115,3 +115,5 @@ disp.plot(cmap='Blues')
 plt.title("Confusion Matrix")
 plt.savefig("../Results/Confusion_matrix/CNN_confusion_matrix.png")
 plt.show()
+torch.save(model.state_dict(), '../Results/Models/cnn_model.pth')
+joblib.dump(scaler, '../Results/Models/feature_scaler_CNN.pkl')
