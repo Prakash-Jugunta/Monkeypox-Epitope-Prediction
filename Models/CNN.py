@@ -5,12 +5,14 @@ import torch.nn as nn
 import torch.nn.functional as F
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 from torch.utils.data import DataLoader, TensorDataset
+import matplotlib.pyplot as plt
 import logging
 
 # 2) Configure logging (append mode)
 logging.basicConfig(
-    filename='cnn_training.log',
+    filename='../Results/Logs/cnn_training.log',
     filemode='a',            # append to existing file
     level=logging.INFO,
     format='%(asctime)s %(levelname)s: %(message)s',
@@ -18,7 +20,7 @@ logging.basicConfig(
 )
 
 # 3) Load your CSV into a pandas DataFrame
-df = pd.read_csv('input_train_dataset.csv')
+df = pd.read_csv('../dataset/input_train_dataset.csv')
 
 # 4) Select features and target
 feature_cols = [
@@ -81,19 +83,35 @@ for epoch in range(1, 101):
         loss.backward()
         optimizer.step()
         total_loss += loss.item()
+    logging.info(f'Epoch {epoch:03d} - Loss: {total_loss:.4f}')
 
-
-# 12) Evaluation with logging
+# 12) Evaluation with accuracy and confusion matrix
 model.eval()
 correct, total = 0, 0
+all_preds = []
+all_labels = []
+
 with torch.no_grad():
     for images, labels in test_loader:
         outputs = model(images)
         _, preds = torch.max(outputs, dim=1)
         correct += (preds == labels).sum().item()
         total += labels.size(0)
+        all_preds.extend(preds.cpu().numpy())
+        all_labels.extend(labels.cpu().numpy())
 
 accuracy = 100 * correct / total
 msg = f'Test Accuracy: {accuracy:.2f}%'
 print(msg)
 logging.info(msg)
+
+# Confusion Matrix
+cm = confusion_matrix(all_labels, all_preds)
+logging.info(f'Confusion Matrix:\n{cm}')
+
+# Visualize Confusion Matrix
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=[0, 1])
+disp.plot(cmap='Blues')
+plt.title("Confusion Matrix")
+plt.savefig("../Results/Confusion_matrix/CNN_confusion_matrix.png")
+plt.show()

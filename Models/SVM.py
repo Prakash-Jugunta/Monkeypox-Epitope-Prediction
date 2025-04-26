@@ -6,7 +6,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report
 
 # 2. Load your data
-df = pd.read_csv('input_train_dataset.csv') 
+df = pd.read_csv('../dataset/input_train_dataset.csv') 
 
 # 3. Select the same feature columns and target
 feature_cols = [

@@ -15,8 +15,8 @@ from mpl_toolkits.mplot3d import Axes3D
 import time
 
 # Load datasets
-bcell_data = pd.read_excel('../datasets/input_F13_train.xlsx')
-unseen_data = pd.read_excel('../datasets/input_F13_test.xlsx')  # Unseen dataset
+bcell_data = pd.read_csv('../dataset/input_train_dataset.csv')
+unseen_data = pd.read_csv('../dataset/unlabeled_dataset.csv')  # Unseen dataset
 
 # Handle missing values
 # Separate numeric and non-numeric columns
