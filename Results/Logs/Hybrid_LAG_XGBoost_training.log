@@ -1,0 +1,8 @@
+2025-04-26 09:43:23 INFO: Test Accuracy (XGBoost): 100.00%
+2025-04-26 09:43:23 INFO: Confusion Matrix:
+[[505   0]
+ [  0 362]]
+2025-04-26 09:43:29 INFO: Test Accuracy (XGBoost): 100.00%
+2025-04-26 09:43:29 INFO: Confusion Matrix:
+[[505   0]
+ [  0 362]]

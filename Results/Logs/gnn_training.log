@@ -1,0 +1,4 @@
+2025-04-26 12:29:22 INFO: Test Accuracy: 89.40%
+2025-04-26 12:29:22 INFO: Confusion Matrix:
+[[124  13]
+ [ 10  70]]

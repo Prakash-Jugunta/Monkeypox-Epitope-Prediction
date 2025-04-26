@@ -26,7 +26,7 @@ df = pd.read_csv('../dataset/input_train_dataset.csv')
 feature_cols = [
     'chou_fasman', 'emini', 'kolaskar_tongaonkar', 'parker', 'isoelectric_point',
     'aromaticity', 'hydrophobicity', 'stability', 'charge', 'flexibility',
-    'solvent_accessibility', 'blosum_score', 'ptm_sites', 'interaction_energy'
+    'solvent_accessibility', 'blosum_score', 'ptm_sites'
 ]
 X = df[feature_cols].values
 y = df['target'].values.astype(int)
@@ -36,7 +36,7 @@ scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
 # 6) Reshape for CNN: [samples, channels, height, width]
-X_scaled = X_scaled.reshape(-1, 1, 14, 1)
+X_scaled = X_scaled.reshape(-1, 1, 13, 1)
 
 # 7) Train/Test split
 X_train, X_test, y_train, y_test = train_test_split(
@@ -57,7 +57,7 @@ class CNN(nn.Module):
         super().__init__()
         self.conv1 = nn.Conv2d(1, 32, kernel_size=(3,1))
         self.conv2 = nn.Conv2d(32, 64, kernel_size=(3,1))
-        self.fc1   = nn.Linear(64 * 10, 128)
+        self.fc1   = nn.Linear(64 * 9, 128)
         self.fc2   = nn.Linear(128, 2)
 
     def forward(self, x):

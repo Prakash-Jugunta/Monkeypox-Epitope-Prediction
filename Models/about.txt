@@ -1,0 +1,8 @@
+1) CNN
+2) GNN
+3) CNN_ATTENSION hybrid model - (Description) {
+
+}
+4) CNN_XGBOOST - (Description){
+    
+}
