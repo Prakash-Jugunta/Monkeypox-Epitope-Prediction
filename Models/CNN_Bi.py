@@ -4,7 +4,15 @@ import torch.nn as nn
 import torch.nn.functional as F
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import (
+    confusion_matrix,
+    ConfusionMatrixDisplay,
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    classification_report
+)
 from torch.utils.data import DataLoader, TensorDataset
 import matplotlib.pyplot as plt
 import logging
@@ -88,7 +96,7 @@ for epoch in range(1, 101):
         total_loss += loss.item()
     logging.info(f'Epoch {epoch:03d} - Loss: {total_loss:.4f}')
 
-# Evaluation with accuracy and confusion matrix
+# Evaluation with metrics
 model.eval()
 correct, total = 0, 0
 all_preds = []
@@ -103,10 +111,24 @@ with torch.no_grad():
         all_preds.extend(preds.cpu().numpy())
         all_labels.extend(labels.cpu().numpy())
 
-accuracy = 100 * correct / total
-msg = f'Test Accuracy: {accuracy:.2f}%'
+# Compute metrics
+accuracy  = accuracy_score(all_labels, all_preds)
+precision = precision_score(all_labels, all_preds)
+recall    = recall_score(all_labels, all_preds)
+f1        = f1_score(all_labels, all_preds)
+
+# Log and display results
+msg = (f"Test Accuracy: {accuracy*100:.2f}%\n"
+       f"Precision: {precision:.4f}\n"
+       f"Recall:    {recall:.4f}\n"
+       f"F1 Score:  {f1:.4f}")
 print(msg)
 logging.info(msg)
+
+# Classification report
+report = classification_report(all_labels, all_preds, target_names=["Non-Epitope (0)", "Epitope (1)"])
+print("\nClassification Report:\n", report)
+logging.info("Classification Report:\n" + report)
 
 # Confusion Matrix
 cm = confusion_matrix(all_labels, all_preds)

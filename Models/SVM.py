@@ -12,7 +12,7 @@ df = pd.read_csv('../dataset/input_train_dataset.csv')
 feature_cols = [
     'chou_fasman', 'emini', 'kolaskar_tongaonkar', 'parker', 'isoelectric_point',
     'aromaticity', 'hydrophobicity', 'stability', 'charge', 'flexibility',
-    'solvent_accessibility', 'blosum_score', 'ptm_sites', 'interaction_energy'
+    'solvent_accessibility', 'blosum_score', 'ptm_sites'
 ]
 X = df[feature_cols].values        # shape: [n_samples, n_features]
 y = df['target'].values            # shape: [n_samples]
